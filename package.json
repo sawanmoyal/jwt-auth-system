@@ -1,0 +1,16 @@
+{
+  "name": "jwt-auth-system",
+  "version": "1.0.0",
+  "description": "Advanced JWT Authentication System — Full Stack",
+  "private": true,
+  "scripts": {
+    "dev:backend":  "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all":  "npm install --prefix backend && npm install --prefix frontend",
+    "build":        "npm run build --prefix frontend",
+    "start":        "cd backend && npm start"
+  },
+  "keywords": ["jwt", "authentication", "react", "express", "mongodb", "rbac"],
+  "author": "",
+  "license": "MIT"
+}
