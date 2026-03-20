@@ -7,128 +7,69 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
-
   const [form, setForm] = useState({ email: "", password: "" });
-  const [localError, setLocalError] = useState("");
+  const [local, setLocal] = useState("");
 
-  const handleChange = (e) => {
-    clearError();
-    setLocalError("");
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const change = e => { clearError(); setLocal(""); setForm(p => ({ ...p, [e.target.name]: e.target.value })); };
 
-  const handleSubmit = async (e) => {
+  const submit = async e => {
     e.preventDefault();
-    setLocalError("");
-
-    if (!form.email || !form.password) {
-      setLocalError("Please fill in all fields.");
-      return;
-    }
-
-    const result = await login(form.email.trim(), form.password);
-    if (result.success) {
-      navigate(from, { replace: true });
-    }
+    if (!form.email || !form.password) { setLocal("Please fill in all fields."); return; }
+    const r = await login(form.email.trim(), form.password);
+    if (r.success) navigate(from, { replace: true });
   };
 
-  const displayError = localError || error;
+  const err = local || error;
 
   return (
-    <div className="auth-layout">
-      <div className="auth-bg-orb orb-1" />
-      <div className="auth-bg-orb orb-2" />
+    <div className="auth-page">
+      <div className="auth-box">
+        <div className="auth-icon">🔐</div>
+        <h1 className="auth-h">Welcome back</h1>
+        <p className="auth-sub">Sign in to your account</p>
 
-      <div className="auth-card">
-        <div className="auth-header">
-          <div className="auth-logo">🔐</div>
-          <h1 className="auth-title">Welcome back</h1>
-          <p className="auth-subtitle">Sign in to your account to continue</p>
-        </div>
-
-        {displayError && (
+        {err && (
           <div className="alert alert-error">
-            <span className="alert-icon">⚠️</span>
-            <span>{displayError}</span>
+            <span>⚠</span> {err}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="form-group">
-            <label className="form-label" htmlFor="email">Email Address</label>
-            <div className="form-input-wrapper">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className={`form-input${displayError ? " error" : ""}`}
-                placeholder="you@example.com"
-                value={form.email}
-                onChange={handleChange}
-                autoComplete="email"
-                autoFocus
-              />
-              <span className="form-input-icon">✉️</span>
+        <form onSubmit={submit} noValidate>
+          <div className="fg">
+            <label className="fl">Email</label>
+            <div className="fi-wrap">
+              <span className="fi-ico">@</span>
+              <input className={`fi${err?" err":""}`} type="email" name="email" placeholder="you@example.com" value={form.email} onChange={change} autoComplete="email" autoFocus />
             </div>
           </div>
-
-          <div className="form-group">
-            <label className="form-label" htmlFor="password">Password</label>
-            <div className="form-input-wrapper">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                className={`form-input${displayError ? " error" : ""}`}
-                placeholder="Enter your password"
-                value={form.password}
-                onChange={handleChange}
-                autoComplete="current-password"
-              />
-              <span className="form-input-icon">🔑</span>
+          <div className="fg">
+            <label className="fl">Password</label>
+            <div className="fi-wrap">
+              <span className="fi-ico">*</span>
+              <input className={`fi${err?" err":""}`} type="password" name="password" placeholder="Your password" value={form.password} onChange={change} autoComplete="current-password" />
             </div>
           </div>
-
-          <div className="mt-2">
-            <button
-              type="submit"
-              className="btn btn-primary btn-full"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <span className="spinner-sm" /> Signing in…
-                </>
-              ) : (
-                "Sign In →"
-              )}
+          <div style={{ marginTop: 20 }}>
+            <button type="submit" className="btn btn-primary btn-full" disabled={loading} style={{ padding: "9px 16px", fontSize: 14 }}>
+              {loading ? <><span className="spinner" /> Signing in…</> : "Sign in →"}
             </button>
           </div>
         </form>
 
-        <div className="divider">or</div>
+        <div className="div-row">or</div>
 
-        {/* Demo credentials helper */}
-        <div style={{
-          background: "rgba(59,130,246,0.06)",
-          border: "1px solid rgba(59,130,246,0.15)",
-          borderRadius: "8px",
-          padding: "0.875rem 1rem",
-          marginBottom: "1.25rem",
-          fontSize: "0.8rem",
-          color: "var(--text-secondary)"
-        }}>
-          <div style={{ fontWeight: 600, color: "var(--accent)", marginBottom: "0.4rem" }}>
-            🧪 Demo Credentials
+        <div style={{ background:"var(--bg)", border:"1px solid var(--border)", borderRadius:"var(--r)", padding:"12px 14px", fontSize:13, color:"var(--ink3)", marginBottom:20 }}>
+          <div style={{ fontWeight:600, color:"var(--ink2)", marginBottom:6 }}>Demo accounts</div>
+          <div style={{ cursor:"pointer", marginBottom:4 }} onClick={() => setForm({ email:"user@demo.com", password:"demo123" })}>
+            👤 <span style={{ color:"var(--blue)" }}>user@demo.com</span> / demo123
           </div>
-          <div>Register any account, or use role <strong style={{color:"var(--admin-color)"}}>admin</strong> on signup for admin access.</div>
+          <div style={{ cursor:"pointer" }} onClick={() => setForm({ email:"admin@demo.com", password:"admin123" })}>
+            👑 <span style={{ color:"var(--purple)" }}>admin@demo.com</span> / admin123
+          </div>
         </div>
 
-        <p className="text-center" style={{ fontSize: "0.875rem", color: "var(--text-secondary)" }}>
-          Don't have an account?{" "}
-          <Link to="/register" style={{ fontWeight: 600 }}>
-            Create one →
-          </Link>
+        <p style={{ textAlign:"center", fontSize:13, color:"var(--ink3)" }}>
+          No account? <Link to="/register" style={{ fontWeight:500 }}>Create one →</Link>
         </p>
       </div>
     </div>

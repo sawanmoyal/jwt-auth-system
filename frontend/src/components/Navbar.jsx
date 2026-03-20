@@ -5,66 +5,48 @@ import { useState } from "react";
 export default function Navbar() {
   const { user, isAdmin, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [loggingOut, setLoggingOut] = useState(false);
+  const [busy, setBusy] = useState(false);
 
   const handleLogout = async () => {
-    setLoggingOut(true);
+    setBusy(true);
     await logout();
     navigate("/login");
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-inner">
-        <NavLink to="/" className="navbar-brand">
-          <div className="brand-icon">🔐</div>
-          SecureAuth
+    <nav className="nav">
+      <div className="nav-in">
+        <NavLink to="/" className="nav-logo" style={{ textDecoration: "none" }}>
+          <div className="nav-logo-mark">S</div>
+          <span>SecureAuth</span>
         </NavLink>
 
-        <div className="navbar-nav">
+        <div className="nav-links">
           {isAuthenticated ? (
             <>
-              <NavLink
-                to="/dashboard"
-                className={({ isActive }) =>
-                  `nav-link${isActive ? " active" : ""}`
-                }
-              >
+              <NavLink to="/dashboard" className={({ isActive }) => "nav-a" + (isActive ? " cur" : "")}>
                 Dashboard
               </NavLink>
-              <NavLink
-                to="/profile"
-                className={({ isActive }) =>
-                  `nav-link${isActive ? " active" : ""}`
-                }
-              >
+              <NavLink to="/profile" className={({ isActive }) => "nav-a" + (isActive ? " cur" : "")}>
                 Profile
               </NavLink>
               {isAdmin && (
-                <NavLink
-                  to="/admin"
-                  className={({ isActive }) =>
-                    `nav-link${isActive ? " active" : ""}`
-                  }
-                >
-                  <span className="nav-badge">👑 Admin</span>
+                <NavLink to="/admin" className={({ isActive }) => "nav-pill" + (isActive ? " cur" : "")} style={{ textDecoration: "none" }}>
+                  Admin
                 </NavLink>
               )}
-              <button
-                onClick={handleLogout}
-                disabled={loggingOut}
-                className="btn-logout"
-              >
-                {loggingOut ? "…" : "Logout"}
+              <div style={{ width: 1, height: 20, background: "var(--border2)", margin: "0 4px" }} />
+              <button onClick={handleLogout} disabled={busy} className="nav-logout">
+                {busy ? "…" : "Sign out"}
               </button>
             </>
           ) : (
             <>
-              <NavLink to="/login" className="nav-link">
-                Login
+              <NavLink to="/login" className={({ isActive }) => "nav-a" + (isActive ? " cur" : "")}>
+                Sign in
               </NavLink>
-              <NavLink to="/register" className="nav-link">
-                Register
+              <NavLink to="/register" style={{ textDecoration: "none" }}>
+                <button className="btn btn-primary btn-sm">Get started</button>
               </NavLink>
             </>
           )}

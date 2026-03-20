@@ -15,24 +15,15 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <div className="app-wrapper">
+        <div className="app">
           <Navbar />
           <Routes>
-            {/* Public */}
             <Route path="/" element={<Home />} />
-
-            {/* Auth — redirect if already logged in */}
-            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path="/login"    element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-
-            {/* Protected — require auth */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-
-            {/* Admin — require admin role */}
-            <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
-
-            {/* 404 */}
+            <Route path="/profile"   element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/admin"     element={<AdminRoute><Admin /></AdminRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
