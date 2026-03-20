@@ -1,4 +1,4 @@
-# 🔐 Advanced JWT Authentication System
+# 🔐 JWT Authentication System
 
 > A production-ready, full-stack authentication system with access/refresh tokens, role-based access control, secure HTTP-only cookies, and complete MERN stack deployment.
 
@@ -8,9 +8,9 @@
 
 | Service | URL |
 |---------|-----|
-| 🌐 **Frontend** | `https://your-app.vercel.app` |
-| 🔗 **Backend API** | `https://your-api.onrender.com` |
-| 📦 **GitHub** | `https://github.com/yourusername/jwt-auth-system` |
+| 🌐 **Frontend** | `https://jwt-auth-system.vercel.app` |
+| 🔗 **Backend API** | `https://jwt-auth-system-phs1.onrender.com` |
+| 📦 **GitHub** | `https://github.com/sawanmoyal/jwt-auth-system` |
 
 ---
 
@@ -217,9 +217,5 @@ VITE_API_BASE_URL=https://your-api.onrender.com
 
 ---
 
-## 🎓 Project Info
-
-Built for **Campus Placement Drive** submission.
+## 🎓 Project Info.
 Demonstrates: full-stack development, security best practices, cloud deployment, and production-ready architecture.
-
-**Built with ❤️ using Node.js + React + MongoDB Atlas**
