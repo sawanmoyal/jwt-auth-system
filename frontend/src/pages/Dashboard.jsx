@@ -97,15 +97,15 @@ export default function Dashboard() {
         <div className="stat-card">
           <div className="stat-icon purple">🔄</div>
           <div>
-            <div className="stat-value">Auto</div>
-            <div className="stat-label">Token Refresh</div>
+            <div className="stat-value">15 min</div>
+            <div className="stat-label">Token Expiry</div>
           </div>
         </div>
         <div className="stat-card">
           <div className="stat-icon amber">🍪</div>
           <div>
-            <div className="stat-value">HTTP-Only</div>
-            <div className="stat-label">Refresh Cookie</div>
+            <div className="stat-value">Secure</div>
+            <div className="stat-label">Cookie Storage</div>
           </div>
         </div>
       </div>

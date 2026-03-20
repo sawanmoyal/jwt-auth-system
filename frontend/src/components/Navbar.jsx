@@ -18,7 +18,7 @@ export default function Navbar() {
       <div className="navbar-inner">
         <NavLink to="/" className="navbar-brand">
           <div className="brand-icon">🔐</div>
-          AuthSystem
+          SecureAuth
         </NavLink>
 
         <div className="navbar-nav">
